@@ -1,0 +1,36 @@
+import requests
+import json
+
+# API endpoint
+url = "https://api.companieshouse.gov.uk/company/{company_number}/shares"
+
+# API key
+api_key = "your_api_key"
+
+# Company number and updated share information
+company_number = "ABC123"
+shareholder_name = "Mr. Y"
+number_of_shares = 50
+
+# Request headers
+headers = {
+    "Authorization": api_key,
+    "Content-Type": "application/json"
+}
+
+# Request body
+data = {
+    "share_class": "Ordinary",
+    "shareholder_name": shareholder_name,
+    "share_identity": "person-with-significant-control",
+    "number_of_shares": number_of_shares
+}
+
+# Make the API request
+response = requests.put(url.format(company_number=company_number), headers=headers, data=json.dumps(data))
+
+# Check the response
+if response.status_code == 200:
+    print("Shares updated successfully")
+else:
+    print("Error updating shares:", response.text)
